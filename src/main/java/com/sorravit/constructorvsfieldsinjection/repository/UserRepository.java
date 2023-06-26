@@ -10,7 +10,7 @@ public class UserRepository {
     public User findByFaith() {
         User user = new User();
         user.setId(ThreadLocalRandom.current().nextLong());
-    user.setEmail("sorravit@hotgmail.com");
+        user.setEmail("sorravit@hotgmail.com");
         return user;
     }
 }

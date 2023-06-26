@@ -4,36 +4,33 @@ import com.sorravit.constructorvsfieldsinjection.model.Book;
 import com.sorravit.constructorvsfieldsinjection.model.User;
 import com.sorravit.constructorvsfieldsinjection.repository.BookRepository;
 import com.sorravit.constructorvsfieldsinjection.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class UserServiceTest {
-
-
+@ExtendWith(MockitoExtension.class)
+public class AnotherOwnerCheckServiceWithFieldInjectionTest {
+// Mock the Bean and use autowire to inject into the service with out using Spring DI
+    @Mock
     private UserRepository userRepository;
-    private OwnerCheckService ownerCheckService;
+
+    @Mock
     private BookRepository bookRepository;
-
-    @BeforeEach
-    public void setUp() {
-        // Create a mock UserRepository
-        userRepository = mock(UserRepository.class);
-        bookRepository = mock(BookRepository.class);
-
-        // Create the UserService instance with the mock UserRepository
-        ownerCheckService = new OwnerCheckService(userRepository, bookRepository);
-    }
+    @InjectMocks
+    private OwnerCheckServiceWithFieldInjection ownerCheckServiceWithFieldInjection;
 
     @Test
     public void testGetUser() {
         User user = new User();
-        user.setUsername("big");
+        user.setUsername("Test Faith");
         when(userRepository.findByFaith()).thenReturn(user);
-        User result = ownerCheckService.getUser();
+
+        User result = ownerCheckServiceWithFieldInjection.getUser();
         assertEquals(user, result);
     }
     @Test
@@ -44,6 +41,6 @@ class UserServiceTest {
         book.setTitle("The Book of life");
         when(userRepository.findByFaith()).thenReturn(user);
         when(bookRepository.findByGod()).thenReturn(book);
-        assertEquals("The Book of life belongs to big", ownerCheckService.getBookOwner());
+        assertEquals("The Book of life belongs to big", ownerCheckServiceWithFieldInjection.getBookOwner());
     }
 }

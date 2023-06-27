@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "username": "john wick",
+  "email": "john.wick@thecontinental.com",
+  "address": {
+    "address": "11 Street",
+    "postCode": "12345"
+  },
+  "phoneNumber": 1669
+}

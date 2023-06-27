@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -27,7 +26,7 @@ public class OwnerCheckServiceWithFieldInjectionTest {
         when(userRepository.findByFaith()).thenReturn(user);
 
         User result = ownerCheckServiceWithFieldInjection.getUser();
-        assertEquals(user, result);
+        assertThat(result).isEqualTo(user);
     }
     @Test
     public void testGetBookOwner(){
@@ -37,6 +36,6 @@ public class OwnerCheckServiceWithFieldInjectionTest {
         book.setTitle("The Book of life");
         when(userRepository.findByFaith()).thenReturn(user);
 //      The bookRepository is not mock and actually autowire by Spring DI
-        assertEquals("The Book of eli belongs to big", ownerCheckServiceWithFieldInjection.getBookOwner());
+        assertThat(ownerCheckServiceWithFieldInjection.getBookOwner()).isEqualTo("The Book of eli belongs to big");
     }
 }

@@ -7,7 +7,7 @@ import com.sorravit.constructorvsfieldsinjection.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +34,7 @@ class UserServiceTest {
         user.setUsername("big");
         when(userRepository.findByFaith()).thenReturn(user);
         User result = ownerCheckService.getUser();
-        assertEquals(user, result);
+        assertThat(result).isEqualTo(user);
     }
     @Test
     public void testGetBookOwner(){
@@ -44,6 +44,6 @@ class UserServiceTest {
         book.setTitle("The Book of life");
         when(userRepository.findByFaith()).thenReturn(user);
         when(bookRepository.findByGod()).thenReturn(book);
-        assertEquals("The Book of life belongs to big", ownerCheckService.getBookOwner());
+        assertThat(ownerCheckService.getBookOwner()).isEqualTo("The Book of life belongs to big");
     }
 }

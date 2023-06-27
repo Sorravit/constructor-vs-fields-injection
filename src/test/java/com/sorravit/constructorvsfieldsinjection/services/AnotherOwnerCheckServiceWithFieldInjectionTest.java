@@ -10,12 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class AnotherOwnerCheckServiceWithFieldInjectionTest {
-// Mock the Bean and use autowire to inject into the service with out using Spring DI
+    // Mock the Bean and use autowire to inject into the service with out using Spring DI
     @Mock
     private UserRepository userRepository;
 
@@ -31,16 +31,18 @@ public class AnotherOwnerCheckServiceWithFieldInjectionTest {
         when(userRepository.findByFaith()).thenReturn(user);
 
         User result = ownerCheckServiceWithFieldInjection.getUser();
-        assertEquals(user, result);
+        assertThat(result).isEqualTo(user);
     }
+
     @Test
-    public void testGetBookOwner(){
+    public void testGetBookOwner() {
         User user = new User();
         user.setUsername("big");
         Book book = new Book();
         book.setTitle("The Book of life");
         when(userRepository.findByFaith()).thenReturn(user);
         when(bookRepository.findByGod()).thenReturn(book);
-        assertEquals("The Book of life belongs to big", ownerCheckServiceWithFieldInjection.getBookOwner());
+        assertThat(ownerCheckServiceWithFieldInjection.getBookOwner()).isEqualTo("The Book of life belongs to big");
+
     }
 }

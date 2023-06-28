@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @Schema(description = "Address details")
 public class Address {
+    @NotEmpty
     @Schema(description = "The address", example = "11 Street")
     private String address;
 

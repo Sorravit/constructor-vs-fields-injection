@@ -22,7 +22,7 @@ public class RandomController {
 
     @PostMapping("address")
     Address postAddress(@Valid @RequestBody Address address) {
-        log.warn(String.valueOf(address));
+        log.warn("{}",address);
         return address;
     }
 
